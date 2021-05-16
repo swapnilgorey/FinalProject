@@ -1,3 +1,14 @@
 {% extends "main.html"%}
 {% block title %}Home{% endblock %}
-{% block pageContent %}This will be Home Page Content{% endblock %}
+{% block pageContent %}
+
+<h3 align="center" style="margin-top: 70px">All Posts</h3>
+<ul class="list-group list-group-flush" id="posts">
+    {% for post in posts%}
+    <li class="list-group-item">
+        {{post.postData}}
+    </li>
+
+    {% endfor %}
+</ul>
+{% endblock %}
