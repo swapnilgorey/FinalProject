@@ -26,7 +26,7 @@ def home():
 @login_required
 def addPost():
     if request.method=='POST':
-        postTitle=request.form.get('postText')
+        postTitle=request.form.get('title')
         postText=request.form.get('postText')
         imgurl= request.form.get('img')
         videourl=request.form.get('video')

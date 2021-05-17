@@ -7,31 +7,37 @@
     {% for post in posts%}
     <li class="list-group-item">
         <div class="row no-gutters">
-            <div class="col-6 col-md-4">
-                {% if post.imgurl  %}
-                <p> <img src={{post.imgurl}} alt="Girl in a jacket" width="350" height="250"></p>
-                {% endif %}
-            </div>
-            <div class="col-12 col-sm-6 col-md-8">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">{{post.postTitle}}</h5>
-                    </div>
+                    <h5 class="card-header">{{post.postTitle}}</h5>
                     <div class="card-body">
                         <p class="card-text">{{post.postData}}</p>
                     </div>
                 </div>
-                <div style="text-align:right; margin-top:10px; font-size:small">
-                    {% for user in users %}
-                    {% if user.id==post.user_id %}
-                        {{ "Posted by: "+ user.firstName+" "+user.lastName}}
-                        <br/>
-                        {{post.date.strftime('%D')}}
-
-                    {% endif %}
-                    {% endfor %}
-                </div>
             </div>
+        </div>
+        <br/>
+
+        <div class="row no-gutters">
+            {% if post.imgurl %}
+            <div class="col-6">
+                <p> <img src={{post.imgurl}} alt="Girl in a jacket" width="500" height="300"></p>
+            </div>
+            {% endif %}
+            {% if post.videourl %}
+            <div class="col-6">
+                <iframe width="500" height="300" src={{post.videourl}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            {% endif %}
+        </div>
+        <div style="text-align:right; margin-top:10px; font-size:small">
+            {% for user in users %}
+                {% if user.id==post.user_id %}
+                    {{ "Posted by: "+ user.firstName+" "+user.lastName}}
+                    <br/>
+                    {{post.date.strftime('%D')}}
+                {% endif %}
+            {% endfor %}
         </div>
     </li>
     <br/>
