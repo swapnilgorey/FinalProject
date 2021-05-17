@@ -13,6 +13,7 @@ class User(db.Model,UserMixin):
 
 class Post(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    postTitle = db.Column(db.String(1000))
     postData = db.Column(db.String(100000))
     date=db.Column(db.DateTime(timezone=True),default=func.now())
     imgurl=db.Column(db.String(200))
