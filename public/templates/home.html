@@ -4,12 +4,19 @@
 
 <h3 align="center" style="margin-top: 70px">All Posts</h3>
 <ul class="list-group list-group-flush" id="posts">
+    {% if posts==[] %}
+    <h5 style=" margin-top:80px;text-align:center "> There are no posts yet. Be the first to write something up</h5>
+    {% endif %}
     {% for post in posts%}
     <li class="list-group-item">
         <div class="row no-gutters">
             <div class="col-12">
                 <div class="card">
-                    <h5 class="card-header">{{post.postTitle}}</h5>
+                    <span class="card-header d-flex justify-content-between">
+                        <h5 >{{post.postTitle}}</h5>
+<!--                        <a href="/EditPost/{{post.id}}" style="margin-left:750px;"> <button>Edit</button> </a>-->
+                        <a href="/deletePost/{{post.id}}"> <button>Delete</button> </a>
+                    </span>
                     <div class="card-body">
                         <p class="card-text">{{post.postData}}</p>
                     </div>
