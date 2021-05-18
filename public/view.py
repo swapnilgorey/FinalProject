@@ -1,36 +1,39 @@
-from flask import Blueprint, render_template,request,flash,redirect,url_for
-from flask_login import login_required,current_user
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_required, current_user
 from .models import Post, User
 from public import db
-pages = Blueprint('pages',__name__)
+
+pages = Blueprint('pages', __name__)
+
 
 @pages.route('/', methods=['GET'])
 @login_required
 def home():
-    posts=Post.query.all()
-    users=User.query.all()
+    posts = Post.query.all()
+    users = User.query.all()
     # for post in posts:
     #     print(post.postData)
-    return render_template("home.html",user=current_user,posts=posts, users=users)
+    return render_template("home.html", user=current_user, posts=posts, users=users)
 
-@pages.route('/deletePost/<int:post_id>',methods=['GET','DELETE'])
+
+@pages.route('/deletePost/<int:post_id>', methods=['GET', 'DELETE'])
 @login_required
 def deletePost(post_id):
-
-    print (post_id)
-    deletepost=Post.query.filter_by(id=post_id).first()
+    print(post_id)
+    deletepost = Post.query.filter_by(id=post_id).first()
     db.session.delete(deletepost)
     db.session.commit()
     return redirect(url_for("pages.home"))
 
-@pages.route('/editPost/<int:post_id>',methods=['GET','POST'])
+
+@pages.route('/editPost/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def editPost(post_id):
     post = Post.query.filter_by(id=post_id).first()
-    if request.method=='GET':
-        print (post_id)
+    if request.method == 'GET':
+        print(post_id)
         return render_template("editPost.html", user=current_user, post=post)
-    if request.method=='POST':
+    if request.method == 'POST':
         postTitle = request.form.get('title')
         postText = request.form.get('postText')
         imgurl = request.form.get('img')
@@ -39,31 +42,43 @@ def editPost(post_id):
         if len(postText) < 1:
             flash("Please Write Something Before You Post", category='error')
         else:
-            post.postTitle=postTitle
-            post.postData=postText
-            post.imgurl=imgurl
-            post.videourl=videourl
+            post.postTitle = postTitle
+            post.postData = postText
+            post.imgurl = imgurl
+            post.videourl = videourl
             db.session.commit()
             flash("Successfully Edited the Post", category='success')
             return redirect(url_for("pages.home"))
 
 
+@pages.route('/search', methods=['GET', 'POST'])
+@login_required
+def searchPost():
+    users = User.query.all()
+    text= request.form.get('search')
+    # print (text)
+    searchedpost=Post.query.filter(Post.postTitle.like ('%'+text+'%')|Post.postData.like ('%'+text+'%')).all()
+    # print (searchedpost)
+    # db.session.commit()
+    return render_template("searchResults.html", user=current_user, posts=searchedpost, users=users)
 
-@pages.route('/addPost',methods=['GET','POST'])
+
+@pages.route('/addPost', methods=['GET', 'POST'])
 @login_required
 def addPost():
-    if request.method=='POST':
-        postTitle=request.form.get('title')
-        postText=request.form.get('postText')
-        imgurl= request.form.get('img')
-        videourl=request.form.get('video')
+    if request.method == 'POST':
+        postTitle = request.form.get('title')
+        postText = request.form.get('postText')
+        imgurl = request.form.get('img')
+        videourl = request.form.get('video')
 
-        if len(postText)<1:
+        if len(postText) < 1:
             flash("Please Write Something Before You Post", category='error')
         else:
-            newpost=Post(postTitle=postTitle,postData=postText,imgurl=imgurl,videourl=videourl,user_id=current_user.id)
+            newpost = Post(postTitle=postTitle, postData=postText, imgurl=imgurl, videourl=videourl,
+                           user_id=current_user.id)
             db.session.add(newpost)
             db.session.commit()
             flash("Successfully Added the Post", category='success')
 
-    return render_template("addPost.html",user=current_user)
+    return render_template("addPost.html", user=current_user)

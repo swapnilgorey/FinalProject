@@ -36,6 +36,10 @@
             <span class="navbar-text">
                 <a class="nav-link"  href="#">Welcome {{user.firstName}}</a>
             </span>
+            <form method="POST" action="/search">
+                <input type="text" placeholder="Search.." name="search">
+<!--                <button type="submit"><i class="fa fa-search"></i></button>-->
+            </form>
 
             {% else %}
         <ul class="navbar-nav mr-auto">

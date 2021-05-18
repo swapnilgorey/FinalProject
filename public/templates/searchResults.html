@@ -1,0 +1,55 @@
+{% extends "main.html"%}
+{% block title %}Home{% endblock %}
+{% block pageContent %}
+
+<h3 align="center" style="margin-top: 70px">All Posts</h3>
+<ul class="list-group list-group-flush" id="posts">
+    {% if posts==[] %}
+    <h5 style=" margin-top:80px;text-align:center "> There are no posts found for your searched keyword. Try searching with something else</h5>
+    {% endif %}
+    {% for post in posts%}
+    <li class="list-group-item">
+        <div class="row no-gutters">
+            <div class="col-12">
+                <div class="card">
+                    <span class="card-header d-flex justify-content-between">
+                        <h5 >{{post.postTitle}}</h5>
+                        {% if user.id==post.user_id %}
+                        <a href="/editPost/{{post.id}}" style="margin-left:750px;"> <button>Edit</button> </a>
+                        <a href="/deletePost/{{post.id}}"> <button>Delete</button> </a>
+                        {% endif %}
+                    </span>
+                    <div class="card-body">
+                        <p class="card-text">{{post.postData}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="row no-gutters">
+            {% if post.imgurl %}
+            <div class="col-6">
+                <p> <img src={{post.imgurl}} alt="Girl in a jacket" width="500" height="300"></p>
+            </div>
+            {% endif %}
+            {% if post.videourl %}
+            <div class="col-6">
+                <iframe width="500" height="300" src={{post.videourl}} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            {% endif %}
+        </div>
+        <div style="text-align:right; margin-top:10px; font-size:small">
+            {% for user in users %}
+                {% if user.id==post.user_id %}
+                    {{ "Posted by: "+ user.firstName+" "+user.lastName}}
+                    <br/>
+                    {{post.date.strftime('%D')}}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </li>
+    <br/>
+    {% endfor %}
+</ul>
+{% endblock %}
