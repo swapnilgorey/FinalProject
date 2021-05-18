@@ -22,10 +22,31 @@ def deletePost(post_id):
     db.session.delete(deletepost)
     db.session.commit()
     return redirect(url_for("pages.home"))
-# return render_template("/", user=current_user)
-        # id=request.form.get(id)
-        # post=Post.query.all(id=id)
-        # # print (post)
+
+@pages.route('/editPost/<int:post_id>',methods=['GET','POST'])
+@login_required
+def editPost(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if request.method=='GET':
+        print (post_id)
+        return render_template("editPost.html", user=current_user, post=post)
+    if request.method=='POST':
+        postTitle = request.form.get('title')
+        postText = request.form.get('postText')
+        imgurl = request.form.get('img')
+        videourl = request.form.get('video')
+
+        if len(postText) < 1:
+            flash("Please Write Something Before You Post", category='error')
+        else:
+            post.postTitle=postTitle
+            post.postData=postText
+            post.imgurl=imgurl
+            post.videourl=videourl
+            db.session.commit()
+            flash("Successfully Edited the Post", category='success')
+            return redirect(url_for("pages.home"))
+
 
 
 @pages.route('/addPost',methods=['GET','POST'])

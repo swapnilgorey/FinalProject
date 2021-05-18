@@ -14,8 +14,10 @@
                 <div class="card">
                     <span class="card-header d-flex justify-content-between">
                         <h5 >{{post.postTitle}}</h5>
-<!--                        <a href="/EditPost/{{post.id}}" style="margin-left:750px;"> <button>Edit</button> </a>-->
+                        {% if user.id==post.user_id %}
+                        <a href="/editPost/{{post.id}}" style="margin-left:750px;"> <button>Edit</button> </a>
                         <a href="/deletePost/{{post.id}}"> <button>Delete</button> </a>
+                        {% endif %}
                     </span>
                     <div class="card-body">
                         <p class="card-text">{{post.postData}}</p>

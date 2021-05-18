@@ -1,0 +1,27 @@
+{% extends "main.html"%}
+{% block title %}Addpost{% endblock %}
+{% block pageContent %}
+<form method="POST">
+    <h3 align="center" style="margin-top: 70px">Add Post</h3>
+    <div class="form-group">
+        <label for="title">Post Title</label>
+        <input type="text" id="title" class="form-control" name="title" placeholder="Add a title to your post" value="{{post.postTitle}}">
+    </div>
+    <div class="form-group">
+        <label for="postText">Add Text</label>
+        <textarea name="postText" id="postText" class="form-control" placeholder="What's in your mind" style="height:300px !important">{{post.postData}}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="img">Image</label>
+        <input type="text" id="img" class="form-control" name="img" placeholder="Add an Image Url" value="{{post.imgurl}}" >
+    </div>
+    <div class="form-group">
+        <label for="video">Video</label>
+        <input type="text" id="video" class="form-control" name="video" placeholder="Add a Video Url" value="{{post.videourl}}">
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary">Looks Good</button>
+    </div>
+</form>
+
+{% endblock %}
