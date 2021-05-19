@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-from flask import Blueprint, render_template
-from flask_login import login_required,current_user
-pages = Blueprint('pages',__name__)
-
-@pages.route('/')
-=======
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Post, User
@@ -14,7 +7,6 @@ pages = Blueprint('pages', __name__)
 
 
 @pages.route('/', methods=['GET'])
->>>>>>> origin/master
 @login_required
 def home():
     posts = Post.query.all()
