@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from flask_login import UserMixin
 from datastore_entity import DatastoreEntity, EntityValue
 import datetime
@@ -48,3 +49,26 @@ class User(DatastoreEntity, UserMixin):
 #     userData['lastName'] = formData['lastName']
 #     userData['password'] = generate_password_hash(formData['password'], method="sha256")
 #     lb.db.collection(u'users').document(usersColDocid).set(userData)
+=======
+from . import db
+from flask_login import UserMixin
+from sqlalchemy.sql import func
+
+class User(db.Model,UserMixin):
+    id=db.Column(db.Integer,primary_key=True)
+    email=db.Column(db.String(200),unique=True)
+    username = db.Column(db.String(200), unique=True)
+    firstName=db.Column(db.String(200))
+    lastName=db.Column(db.String(200))
+    password=db.Column(db.String(200))
+    posts=db.relationship('Post')
+
+class Post(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    postTitle = db.Column(db.String(1000))
+    postData = db.Column(db.String(100000))
+    date=db.Column(db.DateTime(timezone=True),default=func.now())
+    imgurl=db.Column(db.String(200))
+    videourl = db.Column(db.String(200))
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+>>>>>>> origin/master
