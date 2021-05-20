@@ -17,8 +17,7 @@ password (check implemented)
 5. First name and Last name is mandatory
 6. Success message to be displayed for successful login
 7. Failure message to be displayed on login error
-Stevens Institute of Technology
-Author: Swapnil Gorey CPE-551- Final Project Student Id:10443462
+
  
 ###Login
 1. User is able to login with email and password combination
@@ -40,8 +39,7 @@ which user is not the author
 1. While editing the post all the fields are being prepopulated
 2. User is able to edit the fields
 3. User is able to repost the edited post 4. Same post is being updated
-Stevens Institute of Technology
-Author: Swapnil Gorey CPE-551- Final Project Student Id:10443462
+
 
 ###Delete Post
 1. User is able to delete the post
@@ -53,11 +51,13 @@ Search
 ###Logout
 1. Once user hits log out button, user session is destroyed and user is redirected back to login page
 2. When user logs back in and authenticated , all his data from the db gets populated again on home page.
-Stevens Institute of Technology
-Author: Swapnil Gorey CPE-551- Final Project Student Id:10443462
+
+
 
 ##How to Run
 
 #####Go to final project folder and run these commands
 ##### pip install -r requirements.txt
 ##### python3 main.py
+
+Stevens Institute of Technology  Author: Swapnil Gorey CPE-551- Final Project Student Id:10443462
